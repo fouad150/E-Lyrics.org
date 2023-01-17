@@ -1,0 +1,16 @@
+*{
+    box-sizing: border-box;
+}
+.login-body{
+    color: aliceblue;
+    background-image: url("image/13514659_SL.123119.26540.04.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+.login-body h3{
+    color: #01ffff; 
+}
+.login-body .submit-button{
+    background-color: #1cc9e2;
+}
