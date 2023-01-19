@@ -14,3 +14,41 @@
 .login-body .submit-button{
     background-color: #1cc9e2;
 }
+
+
+.dashboard-body{
+    background-color:#002434;
+}
+table{
+    text-align: center;
+    border: 0.5px solid rgb(225, 221, 221);
+}
+thead{
+    background-color:#1cc9e2;
+}
+.h3-div{
+    height: 42px;
+}
+.h3-div h3{
+    margin-top: -14px;
+}
+.index-td{
+    color: rgb(192, 251, 103);
+}
+.lyrics{
+    cursor: pointer;
+    white-space: nowrap; 
+    width: 100px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.modal-content{
+    background-color: #002434;
+}
+.delete-button{
+    background-color: #f43547;
+}
+.btn-close{
+    background-color: white;
+}

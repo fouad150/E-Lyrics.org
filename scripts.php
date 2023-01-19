@@ -1,4 +1,8 @@
 <?php
+include "classes/databaseClass.php";
+$dbConnection = new databaseConnection();
+$pdo = $dbConnection->connection();
+
 include "classes/loginClass.php";
 $login_object = new login();
 if (isset($_POST['login'])) {
@@ -17,8 +21,8 @@ if (isset($_POST['login'])) {
 }
 
 
-include "classes/song.php";
+include "classes/songClass.php";
 $song_object = new song();
-if (isset($_POST["save"])) {
-    $song_object->insert($_POST["title"], $_POST["artist"], $_POST["song"], $post["publication_date"]);
-}
+if (isset($_POST["save"])) $song_object->insert();
+if (isset($_POST["update"])) $song_object->update();
+if (isset($_POST["delete"])) $song_object->delete();

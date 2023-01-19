@@ -30,7 +30,7 @@ session_start();
     <!-- END parsley js-->
 </head>
 
-<body class="login-body">
+<body class="login-body h-100">
     <div class="h-100 p-0 m-0">
         <div class="h-100">
             <div class="col-sm-12 col-md-8 col-lg-6">

@@ -1,8 +1,4 @@
 <?php
-include "databaseClass.php";
-$dbConnection = new databaseConnection();
-$pdo = $dbConnection->connection();
-
 class login
 {
 
