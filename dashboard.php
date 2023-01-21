@@ -41,11 +41,11 @@ include("scripts.php");
                         <td class='index-td'>" . $index . "</td>
                         <td>" . $row["title"] . "</td>
                         <td>" . $row["artist"] . "</td>
-                        <td data-bs-toggle='modal' data-bs-target='#lyrics-modal'><div class='lyrics'>" . $row["song"] . "</div></td>
+                        <td data-bs-toggle='modal' data-bs-target='#lyrics-modal'><div class='lyrics' data-song='". $row["song"] ."'>" . $row["song"] . "</div></td>
                         <td>" . $row["publication_date"] . "</td>
                         <td>
-                            <button type='button' class='btn btn-warning' onclick='showModal(this);' data-bs-toggle='modal' data-bs-target='#modal' >Edit</button>
-                            <button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#modal'>Dlete</button>
+                            <button type='button' class='btn btn-warning' onclick='updateModal(this);' data-bs-toggle='modal' data-bs-target='#modal' >Edit</button>
+                            <button type='button' class='btn btn-danger' onclick='deleteModal(this);' data-bs-toggle='modal' data-bs-target='#modal'>Dlete</button>
                         </td>
                     </tr>";
                     $index++;
@@ -56,7 +56,7 @@ include("scripts.php");
     </div>
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal">
+    <button type="button" class="btn btn-primary" onclick="saveModal();" data-bs-toggle="modal" data-bs-target="#modal">
         modal
     </button>
     <!-- Model -->
@@ -70,7 +70,7 @@ include("scripts.php");
                     </div>
                     <div class="modal-body">
                         <!-- This Input Allows Storing song id  -->
-                        <input type="text" id="song-id" name="song_id">
+                        <input type="hidden" id="song-id" name="song_id">
                         <div class="mb-3">
                             <label class="form-label">Title</label>
                             <input type="text" class="form-control" id="song-title" name="title" />

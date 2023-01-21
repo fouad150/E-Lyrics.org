@@ -1,6 +1,6 @@
 var form=document.forms['add-modal'];
 
-function showModal(button){
+function fillModal(button){
     let parent=button.parentNode.parentNode;
     let lyrics_id=parent.getAttribute("id");
     let title=parent.children[1].textContent;
@@ -13,22 +13,25 @@ function showModal(button){
     form.artist.value=artist;
     form.song.value=song;
     form.publication_date.value=publication_date;
-    // hideSave();
 }
 
-// function emtyModal(){
-//     form.reset();
-//     hideUpdateAndDelete();
-// }
+function saveModal(){
+    form.reset();//reset() is a function that empty the Modal
+    hideButtons("none","none","block");
+}
 
-// function hideSave(){
-//     document.getElementById("instrument-save-btn").style.display="none";
-//     document.getElementById("instrument-update-btn").style.display="block";
-//     document.getElementById("instrument-delete-btn").style.display="block";
-// }
+function updateModal(button){
+    fillModal(button);
+    hideButtons("none","block","none");
+}
 
-// function hideUpdateAndDelete(){
-//     document.getElementById("instrument-delete-btn").style.display="none";
-//     document.getElementById("instrument-update-btn").style.display="none";
-//     document.getElementById("instrument-save-btn").style.display="block";
-// }
+function deleteModal(button){
+    fillModal(button);
+    hideButtons("block","none","none");
+}
+
+function hideButtons(x,y,z){
+    document.getElementById("song-delete-btn").style.display=x;
+    document.getElementById("song-update-btn").style.display=y;
+    document.getElementById("song-save-btn").style.display=z;
+}
