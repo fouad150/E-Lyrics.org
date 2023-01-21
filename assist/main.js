@@ -1,7 +1,7 @@
 var form=document.forms['add-modal'];
 
-function fillModal(button){
-    let parent=button.parentNode.parentNode;
+function fillModal(This){
+    let parent=This.parentNode.parentNode;
     let lyrics_id=parent.getAttribute("id");
     let title=parent.children[1].textContent;
     let artist=parent.children[2].textContent;
@@ -35,3 +35,10 @@ function hideButtons(x,y,z){
     document.getElementById("song-update-btn").style.display=y;
     document.getElementById("song-save-btn").style.display=z;
 }
+
+
+
+function showLyrics(This){
+    document.getElementById("lyrics-modal-boday").innerText=This.textContent;  
+}
+

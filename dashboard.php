@@ -19,6 +19,34 @@ include("scripts.php");
 
 <body class="dashboard-body">
     <div class="container mt-4">
+        <?php
+        if (isset($_SESSION['successful-inserting'])) {
+            echo "
+        <div class='alert alert-success alert-dismissible fade show' role='alert'>
+        <strong style='color:#002434;'>" . $_SESSION['successful-inserting'] . "</strong>  
+        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+        </div>";
+            unset($_SESSION['successful-inserting']);
+        }
+
+        if (isset($_SESSION['successful-update'])) {
+            echo "
+        <div class='alert alert-warning alert-dismissible fade show' role='alert'>
+        <strong style='color:#002434;'>" . $_SESSION['successful-update'] . "</strong>  
+        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+        </div>";
+            unset($_SESSION['successful-update']);
+        }
+
+        if (isset($_SESSION['successful-delete'])) {
+            echo "
+        <div class='alert alert-danger alert-dismissible fade show' role='alert'>
+        <strong style='color:#002434;'>" . $_SESSION['successful-delete'] . "</strong>  
+        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+        </div>";
+            unset($_SESSION['successful-delete']);
+        }
+        ?>
         <table id="trains" class="table table-striped display nowrap" width="100%">
             <thead class="text-white">
 
@@ -41,7 +69,7 @@ include("scripts.php");
                         <td class='index-td'>" . $index . "</td>
                         <td>" . $row["title"] . "</td>
                         <td>" . $row["artist"] . "</td>
-                        <td data-bs-toggle='modal' data-bs-target='#lyrics-modal'><div class='lyrics' data-song='". $row["song"] ."'>" . $row["song"] . "</div></td>
+                        <td><div class='lyrics' onclick='showLyrics(this);' data-bs-toggle='modal' data-bs-target='#lyrics-modal'>" . $row["song"] . "</div></td>
                         <td>" . $row["publication_date"] . "</td>
                         <td>
                             <button type='button' class='btn btn-warning' onclick='updateModal(this);' data-bs-toggle='modal' data-bs-target='#modal' >Edit</button>
@@ -70,31 +98,36 @@ include("scripts.php");
                     </div>
                     <div class="modal-body">
                         <!-- This Input Allows Storing song id  -->
-                        <input type="hidden" id="song-id" name="song_id">
+                        <input type="hidden" name="song_id">
                         <div class="mb-3">
                             <label class="form-label">Title</label>
-                            <input type="text" class="form-control" id="song-title" name="title" />
+                            <input type="text" class="form-control" name="title[]" />
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Artist</label>
-                            <input type="text" class="form-control" id="song" name="artist" />
+                            <input type="text" class="form-control" name="artist[]" />
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Song</label>
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="" id="floatingTextarea2" style="height: 100px" name="song"></textarea>
+                                <textarea class="form-control" placeholder="" style="height: 100px" name="song[]"></textarea>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Publication date</label>
-                            <input type="date" class="form-control" id="publication_date" name="publication_date" />
+                            <input type="date" class="form-control" name="publication_date[]" />
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <a href="#" class="btn bg-white" data-bs-dismiss="modal">Cancel</a>
-                        <button type="submit" name="delete" class="btn btn-danger task-action-btn delete-button" id="song-delete-btn">Delete</button>
-                        <button type="submit" name="update" class="btn btn-warning task-action-btn" id="song-update-btn">Update</button>
-                        <button type="submit" name="save" class="btn btn-primary task-action-btn" id="song-save-btn">Save</button>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <button type="button" class="btn btn-info task-action-btn ">Multiple</button>
+                        </div>
+                        <div>
+                            <a href="#" class="btn bg-white" data-bs-dismiss="modal">Cancel</a>
+                            <button type="submit" name="delete" class="btn btn-danger task-action-btn delete-button" id="song-delete-btn">Delete</button>
+                            <button type="submit" name="update" class="btn btn-warning task-action-btn" id="song-update-btn">Update</button>
+                            <button type="submit" name="save" class="btn btn-primary task-action-btn" id="song-save-btn">Save</button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -106,16 +139,12 @@ include("scripts.php");
     <div class="modal fade" id="lyrics-modal">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="scripts.php" method="POST" id="form-modal" enctype="multipart/form-data">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Lyrics</h5>
-                        <a href="#" class="btn-close" data-bs-dismiss="modal"></a>
-                    </div>
-                    <div class="modal-body">
-                        <!-- This Input Allows Storing song id  -->
-                        <input type="text" id="song-id" name="song_id">
-
-                    </div>
+                <div class="modal-header">
+                    <h5 class="modal-title">Lyrics</h5>
+                    <a href="#" class="btn-close" data-bs-dismiss="modal"></a>
+                </div>
+                <div class="modal-body" id="lyrics-modal-boday">
+                </div>
                 </form>
             </div>
         </div>
