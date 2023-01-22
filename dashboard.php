@@ -19,6 +19,25 @@ include("scripts.php");
 
 <body class="dashboard-body">
     <div class="container mt-4">
+        <div class="statistics-container">
+            <div class="statistics d-flex justify-content-between align-items-center">
+                <div class="stats">
+                    <h5 class="mb-0">Titles</h5>
+                    <span><?php echo $song_object->getTitlesSum()->rowcount(); ?></span>
+                </div>
+                <div class="stats">
+                    <h5 class="mb-0">Artists</h5>
+                    <span>142</span>
+                </div>
+                <div class="stats">
+                    <h5 class="mb-0">Admins</h5>
+                    <span>129</span>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn mb-3" style="background-color:#1cc9e2;" onclick="addModal();" data-bs-toggle="modal" data-bs-target="#modal"><i class="fa fa-plus fa-lg me-2 ms-n2"></i> <strong>Add Song</strong></button>
+
         <?php
         if (isset($_SESSION['successful-inserting'])) {
             echo "
@@ -83,10 +102,6 @@ include("scripts.php");
         </table>
     </div>
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" onclick="saveModal();" data-bs-toggle="modal" data-bs-target="#modal">
-        modal
-    </button>
     <!-- Model -->
     <div class="modal fade" id="modal">
         <div class="modal-dialog">
@@ -119,10 +134,10 @@ include("scripts.php");
                                 <input type="date" class="form-control" name="publication_date[]" />
                             </div>
                         </div>
-                </div>
+                    </div>
                     <div class="d-flex justify-content-between">
                         <div>
-                            <button type="button" class="btn task-action-btn multiple-button" onclick="duplicate();">Multiple</button>
+                            <button type="button" class="btn task-action-btn multiple-button" id="duplicate-button" onclick="duplicateInputs();"><i class="fa fa-plus fa-lg me-2 ms-n2"></i>Multiple</button>
                         </div>
                         <div class="modal-footer">
                             <a href="#" class="btn bg-white" data-bs-dismiss="modal">Cancel</a>
@@ -145,7 +160,7 @@ include("scripts.php");
                     <h5 class="modal-title">Lyrics</h5>
                     <a href="#" class="btn-close" data-bs-dismiss="modal"></a>
                 </div>
-                <div class="modal-body" id="lyrics-modal-boday">
+                <div class="modal-body" id="lyrics-modal-body">
                 </div>
                 </form>
             </div>

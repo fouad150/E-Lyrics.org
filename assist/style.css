@@ -19,6 +19,17 @@
 .dashboard-body{
     background-color:#002434;
 }
+.statistics-container{
+    position: relative;
+    height: 118px;
+    margin-right: 36px;
+}
+.statistics{
+    width: 309px;
+    position: absolute;
+    top: 33px;
+    right: 0;
+}
 table{
     text-align: center;
     border: 0.5px solid rgb(225, 221, 221);
