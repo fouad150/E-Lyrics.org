@@ -42,3 +42,33 @@ function showLyrics(This){
     document.getElementById("lyrics-modal-boday").innerText=This.textContent;  
 }
 
+
+
+function duplicate(){
+    var modal_body=document.querySelector("#modal-body");
+    let x=modal_body.innerHTML+=`<div class="mt-5">
+                                    <!-- This Input Allows Storing song id  -->
+                                    <input type="hidden" name="song_id">
+                                    <div class="mb-3">
+                                        <label class="form-label">Title</label>
+                                        <input type="text" class="form-control" name="title[]" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Artist</label>
+                                        <input type="text" class="form-control" name="artist[]" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Song</label>
+                                        <div class="form-floating">
+                                            <textarea class="form-control" placeholder="" style="height: 100px" name="song[]"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Publication date</label>
+                                        <input type="date" class="form-control" name="publication_date[]" />
+                                    </div>
+                                </div>`;
+    console.log(x);
+}
+
+

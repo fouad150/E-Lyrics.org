@@ -52,3 +52,10 @@ thead{
 .btn-close{
     background-color: white;
 }
+
+.multiple-button{
+    margin: 17PX 0PX 0PX 14PX;
+    background-color: #ff5400;
+    border: 0px;
+    color: white;
+}

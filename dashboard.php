@@ -96,33 +96,35 @@ include("scripts.php");
                         <h5 class="modal-title">Lyrics</h5>
                         <a href="#" class="btn-close" data-bs-dismiss="modal"></a>
                     </div>
-                    <div class="modal-body">
-                        <!-- This Input Allows Storing song id  -->
-                        <input type="hidden" name="song_id">
-                        <div class="mb-3">
-                            <label class="form-label">Title</label>
-                            <input type="text" class="form-control" name="title[]" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Artist</label>
-                            <input type="text" class="form-control" name="artist[]" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Song</label>
-                            <div class="form-floating">
-                                <textarea class="form-control" placeholder="" style="height: 100px" name="song[]"></textarea>
+                    <div class="modal-body" id="modal-body">
+                        <div>
+                            <!-- This Input Allows Storing song id  -->
+                            <input type="hidden" name="song_id">
+                            <div class="mb-3">
+                                <label class="form-label">Title</label>
+                                <input type="text" class="form-control" name="title[]" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Artist</label>
+                                <input type="text" class="form-control" name="artist[]" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Song</label>
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="" style="height: 100px" name="song[]"></textarea>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Publication date</label>
+                                <input type="date" class="form-control" name="publication_date[]" />
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Publication date</label>
-                            <input type="date" class="form-control" name="publication_date[]" />
-                        </div>
-                    </div>
+                </div>
                     <div class="d-flex justify-content-between">
                         <div>
-                            <button type="button" class="btn btn-info task-action-btn ">Multiple</button>
+                            <button type="button" class="btn task-action-btn multiple-button" onclick="duplicate();">Multiple</button>
                         </div>
-                        <div>
+                        <div class="modal-footer">
                             <a href="#" class="btn bg-white" data-bs-dismiss="modal">Cancel</a>
                             <button type="submit" name="delete" class="btn btn-danger task-action-btn delete-button" id="song-delete-btn">Delete</button>
                             <button type="submit" name="update" class="btn btn-warning task-action-btn" id="song-update-btn">Update</button>
