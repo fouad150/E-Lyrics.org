@@ -39,7 +39,7 @@ function fillModal(This){
                             <div class="mb-3">
                                 <label class="form-label">Song</label>
                                 <div class="form-floating">
-                                    <textarea class="form-control" placeholder="" style="height: 100px" name="song">value="${song}"</textarea>
+                                    <textarea class="form-control" placeholder="" style="height: 100px" name="song">${song}</textarea>
                                 </div>
                             </div>
                             <div class="mb-3">

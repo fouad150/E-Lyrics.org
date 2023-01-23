@@ -30,6 +30,9 @@
     top: 33px;
     right: 0;
 }
+.yellow{
+    color: #ffd60a;
+}
 table{
     text-align: center;
     border: 0.5px solid rgb(225, 221, 221);
@@ -43,9 +46,6 @@ thead{
 .h3-div h3{
     margin-top: -14px;
 }
-.index-td{
-    color: rgb(192, 251, 103);
-}
 .lyrics{
     cursor: pointer;
     white-space: nowrap; 
@@ -53,7 +53,6 @@ thead{
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .modal-content{
     background-color: #002434;
 }

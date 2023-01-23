@@ -19,13 +19,6 @@ class song
         header("location:dashboard.php");
     }
 
-    public function getSongs()
-    {
-        global $pdo;
-        $stmt = $pdo->query("SELECT * FROM songs");
-        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $data;
-    }
 
     public function update()
     {
@@ -53,12 +46,54 @@ class song
         header("location:dashboard.php");
     }
 
-
-    public function getTitlesSum()
+    public function getSongs($sort = "")
     {
         global $pdo;
-        $sql = "SELECT DISTINCT title FROM songs";
+        $stmt = $pdo->query("SELECT * FROM songs $sort"); //ORDER BY title or artist
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $this->echoSongs($data);
+    }
+
+    public function getSum($column, $table = "songs")
+    {
+        global $pdo;
+        $sql = "SELECT DISTINCT $column FROM $table";
         $stmt = $pdo->query($sql);
         return $stmt;
+    }
+
+
+    public function searchSong()
+    {
+        global $pdo;
+        $chosen_word = $_POST["search-input"];
+        $stmt = $pdo->prepare("SELECT * FROM songs WHERE title=? OR artist=?");
+        $stmt->execute([$chosen_word, $chosen_word]);
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (count($data) == 0) {
+            $_SESSION["no-result"] = "There is no result try again";
+        } else {
+            $this->echoSongs($data);
+        }
+    }
+
+
+    public function echoSongs($data)
+    {
+        $index = 1;
+        foreach ($data as $row) {
+            echo "<tr id='" . $row["id"] . "'>
+                        <td class='index-td'>" . $index . "</td>
+                        <td>" . $row["title"] . "</td>
+                        <td>" . $row["artist"] . "</td>
+                        <td><div class='lyrics' onclick='showLyrics(this);' data-bs-toggle='modal' data-bs-target='#lyrics-modal'>" . $row["song"] . "</div></td>
+                        <td>" . $row["publication_date"] . "</td>
+                        <td>
+                            <button type='button' class='btn btn-warning' onclick='updateModal(this);' data-bs-toggle='modal' data-bs-target='#modal' >Edit</button>
+                            <button type='button' class='btn' style='background-color:#f50472; color:white;' onclick='deleteModal(this);' data-bs-toggle='modal' data-bs-target='#modal'>Dlete</button>
+                        </td>
+                    </tr>";
+            $index++;
+        }
     }
 }

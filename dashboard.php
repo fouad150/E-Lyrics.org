@@ -22,21 +22,21 @@ include("scripts.php");
         <div class="statistics-container">
             <div class="statistics d-flex justify-content-between align-items-center">
                 <div class="stats">
-                    <h5 class="mb-0">Titles</h5>
-                    <span><?php echo $song_object->getTitlesSum()->rowcount(); ?></span>
+                    <h5 class="mb-0 yellow">Titles</h5>
+                    <span><?php echo $song_object->getSum("title")->rowcount(); ?></span>
                 </div>
                 <div class="stats">
-                    <h5 class="mb-0">Artists</h5>
-                    <span>142</span>
+                    <h5 class="mb-0 yellow">Artists</h5>
+                    <span><?php echo $song_object->getSum("artist")->rowcount(); ?></span>
                 </div>
                 <div class="stats">
-                    <h5 class="mb-0">Admins</h5>
-                    <span>129</span>
+                    <h5 class="mb-0 yellow">Admins</h5>
+                    <span><?php echo $song_object->getSum("email", "admins")->rowcount(); ?></span>
                 </div>
             </div>
         </div>
 
-        <button type="button" class="btn mb-3" style="background-color:#1cc9e2;" onclick="addModal();" data-bs-toggle="modal" data-bs-target="#modal"><i class="fa fa-plus fa-lg me-2 ms-n2"></i> <strong>Add Song</strong></button>
+        <button type="button" class="btn mb-4" style="background-color:#1cc9e2;" onclick="addModal();" data-bs-toggle="modal" data-bs-target="#modal"><i class="fa fa-plus fa-lg me-2 ms-n2"></i> <strong>Add Song</strong></button>
 
         <?php
         if (isset($_SESSION['successful-inserting'])) {
@@ -66,6 +66,28 @@ include("scripts.php");
             unset($_SESSION['successful-delete']);
         }
         ?>
+
+        <div class="row mb-2">
+            <div class="col-md-5 w-100 d-flex justify-content-end">
+                <form action="dashboard.php" method="post" class="input-group" style="width:180px;">
+                    <input class="form-control border " type="search" name="search-input">
+                    <button class="btn btn-info" style="background-color:#1cc9e2;" type="submit" name="search">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-5 w-100 d-flex justify-content-end">
+                <form action="dashboard.php" method="post" class="input-group" style="width:180px;">
+                    <select class="form-select" name="select">
+                        <option value="title" class="text-dark">By title</option>
+                        <option value="artist" class="text-dark">By artist</option>
+                    </select>
+                    <button class="btn btn-info" style="background-color:#1cc9e2; width:73px;" type="submit" name="sort">Sort</button>
+                </form>
+            </div>
+        </div>
+
+
         <table id="trains" class="table table-striped display nowrap" width="100%">
             <thead class="text-white">
 
@@ -81,21 +103,28 @@ include("scripts.php");
             </thead>
             <tbody>
                 <?php
-                $data = $song_object->getSongs();
-                $index = 1;
-                foreach ($data as $row) {
-                    echo "<tr id='" . $row["id"] . "'>
-                        <td class='index-td'>" . $index . "</td>
-                        <td>" . $row["title"] . "</td>
-                        <td>" . $row["artist"] . "</td>
-                        <td><div class='lyrics' onclick='showLyrics(this);' data-bs-toggle='modal' data-bs-target='#lyrics-modal'>" . $row["song"] . "</div></td>
-                        <td>" . $row["publication_date"] . "</td>
-                        <td>
-                            <button type='button' class='btn btn-warning' onclick='updateModal(this);' data-bs-toggle='modal' data-bs-target='#modal' >Edit</button>
-                            <button type='button' class='btn btn-danger' onclick='deleteModal(this);' data-bs-toggle='modal' data-bs-target='#modal'>Dlete</button>
-                        </td>
-                    </tr>";
-                    $index++;
+                if (isset($_POST["search"])) {
+                    $song_object->searchSong();
+                } else {
+                    if (isset($_POST["sort"])) {
+                        if ($_POST["select"] == "title") {
+                            $data = $song_object->getSongs("ORDER BY title");
+                        } else if ($_POST["select"] == "artist") {
+                            $data = $song_object->getSongs("ORDER BY artist");
+                        }
+                    } else {
+                        $data = $song_object->getSongs();
+                    }
+                }
+
+
+                if (isset($_SESSION['no-result'])) {
+                    echo "
+                <div class='alert alert-danger alert-dismissible fade show' role='alert'>
+                <strong style='color:#002434;'>" . $_SESSION['no-result'] . "</strong>  
+                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                </div>";
+                    unset($_SESSION['no-result']);
                 }
                 ?>
             </tbody>
