@@ -87,48 +87,50 @@ include("scripts.php");
             </div>
         </div>
 
+        <div class="table-responsive">
+            <table id="trains" class="table table-striped display nowrap" width="100%">
+                <thead class="text-white">
 
-        <table id="trains" class="table table-striped display nowrap" width="100%">
-            <thead class="text-white">
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Artist</th>
+                        <th>Lyrics</th>
+                        <th>Publication date</th>
+                        <th>action</th>
+                    </tr>
 
-                <tr>
-                    <th>#</th>
-                    <th>Title</th>
-                    <th>Artist</th>
-                    <th>Lyrics</th>
-                    <th>Publication date</th>
-                    <th>action</th>
-                </tr>
-
-            </thead>
-            <tbody>
-                <?php
-                if (isset($_POST["search"])) {
-                    $song_object->searchSong();
-                } else {
-                    if (isset($_POST["sort"])) {
-                        if ($_POST["select"] == "title") {
-                            $data = $song_object->getSongs("ORDER BY title");
-                        } else if ($_POST["select"] == "artist") {
-                            $data = $song_object->getSongs("ORDER BY artist");
-                        }
+                </thead>
+                <tbody>
+                    <?php
+                    if (isset($_POST["search"])) {
+                        $song_object->searchSong();
                     } else {
-                        $data = $song_object->getSongs();
+                        if (isset($_POST["sort"])) {
+                            if ($_POST["select"] == "title") {
+                                $data = $song_object->getSongs("ORDER BY title");
+                            } else if ($_POST["select"] == "artist") {
+                                $data = $song_object->getSongs("ORDER BY artist");
+                            }
+                        } else {
+                            $data = $song_object->getSongs();
+                        }
                     }
-                }
 
 
-                if (isset($_SESSION['no-result'])) {
-                    echo "
+                    if (isset($_SESSION['no-result'])) {
+                        echo "
                 <div class='alert alert-danger alert-dismissible fade show' role='alert'>
                 <strong style='color:#002434;'>" . $_SESSION['no-result'] . "</strong>  
                 <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
                 </div>";
-                    unset($_SESSION['no-result']);
-                }
-                ?>
-            </tbody>
-        </table>
+                        unset($_SESSION['no-result']);
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
     <!-- Model -->
