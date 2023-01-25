@@ -14,7 +14,7 @@ class login
     public function checkExist($email, $password)
     {
         global $pdo;
-        $sql = "SELECT * from admins WHERE email=?and password=?;";
+        $sql = "SELECT * from admins WHERE email=? and password=?;";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$email, $password]);
         $admin = $stmt->fetch();

@@ -1,5 +1,8 @@
 <?php
 include("scripts.php");
+if (!isset($_SESSION["profil"])) {
+    header("location:login.php");
+}
 ?>
 
 <!doctype html>
